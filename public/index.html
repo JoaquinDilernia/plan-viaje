@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MiPlanDeViaje.com</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/201/201623.png" />
+</head>
+<body>
+  <header class="header">
+    <div class="header-overlay"></div>
+    <div class="header-content">
+      <img src="https://cdn-icons-png.flaticon.com/512/201/201623.png" alt="Logo" class="logo" />
+      <h1>MiPlanDeViaje.com</h1>
+    </div>
+  </header>
+  <main>
+    <section class="main-card">
+      <p>Planificá tu viaje ideal con ayuda de inteligencia artificial</p>
+
+      <div class="options-row">
+        <button class="option-btn" onclick="seleccionarOpcion('pais')">❤️ Viajar por mi país</button>
+        <button class="option-btn" onclick="seleccionarOpcion('cerca')">🚗✈️🚶‍♂️ De a tramos</button>
+        <button class="option-btn" onclick="seleccionarOpcion('mundo')">🌍 Conocer el mundo</button>
+        <button class="option-btn" onclick="seleccionarOpcion('comparar')">💰 Comparar precios</button>
+        <button class="option-btn" onclick="seleccionarOpcion('sorprendeme')">🎲 ¡Sorprendeme!</button>
+      </div>
+      <form id="formulario-itinerario" autocomplete="off">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="pais">¿Desde dónde viajás?</label>
+            <input type="text" id="pais" name="pais" placeholder="Ej: Argentina" autocomplete="off" />
+            <div id="sugerencias-pais" class="sugerencias"></div>
+          </div>
+          <div class="form-group">
+            <label for="destino">¿A dónde querés viajar?</label>
+            <input type="text" id="destino" name="destino" class="destino-input" placeholder="Ej: Italia" autocomplete="off" />
+            <div id="sugerencias-destino" class="sugerencias"></div>
+            <div id="destinos-container"></div>
+            <button type="button" id="agregar-destino" class="add-destino-btn">+ Agregar destinos</button>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="presupuesto">Presupuesto estimado</label>
+            <input type="range" id="presupuesto" name="presupuesto" min="0" max="50000" value="1500" step="250" />
+            <input type="number" id="presupuesto-manual" min="0" placeholder="Presupuesto manual" />
+          </div>
+          <div class="form-group">
+            <label for="moneda">Moneda</label>
+            <select id="moneda" name="moneda">
+              <option value="USD">USD</option>
+              <option value="ARS">ARS</option>
+              <option value="EUR">EUR</option>
+              <option value="BRL">BRL</option>
+              <option value="BTC">BTC</option>
+              <option value="ETH">ETH</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="fecha-desde">Fecha desde</label>
+            <input type="date" id="fecha-desde" name="fecha-desde" />
+          </div>
+          <div class="form-group">
+            <label for="fecha-hasta">Fecha hasta</label>
+            <input type="date" id="fecha-hasta" name="fecha-hasta" />
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="cantidad-dias">Cantidad de días</label>
+            <input type="number" id="cantidad-dias" name="cantidad-dias" min="1" placeholder="Ej: 7" />
+          </div>
+          <div class="form-group">
+            <label for="cantidad-adultos">Adultos</label>
+            <input type="number" id="cantidad-adultos" name="cantidad-adultos" min="1" placeholder="Ej: 2" />
+          </div>
+          <div class="form-group">
+            <label for="cantidad-ninos">Niños</label>
+            <input type="number" id="cantidad-ninos" name="cantidad-ninos" min="0" placeholder="Ej: 1" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="km-tramo">Parada cada (km)</label>
+          <input type="number" id="km-tramo" name="km-tramo" min="0" placeholder="Ej: 200" />
+        </div>
+
+        <div class="form-group">
+          <label>Temáticas de viaje</label>
+          <div class="topics-row">
+            <button type="button" class="topic-btn" data-topico="Deportes">🏀 Deportes</button>
+            <button type="button" class="topic-btn" data-topico="Música">🎵 Música</button>
+            <button type="button" class="topic-btn" data-topico="Arte">🎨 Arte</button>
+            <button type="button" class="topic-btn" data-topico="Esquiar">🎿 Esquiar</button>
+            <button type="button" class="topic-btn" data-topico="Descanso">🛌 Descanso</button>
+            <button type="button" class="topic-btn" data-topico="Naturaleza">🌳 Naturaleza</button>
+            <button type="button" class="topic-btn" data-topico="Gastronomía">🍴 Gastronomía</button>
+            <button type="button" class="topic-btn" data-topico="Aventura">🏕 Aventura</button>
+            <button type="button" class="topic-btn" data-topico="Historia">🏛 Historia</button>
+            <button type="button" class="topic-btn" data-topico="Playa">🏖 Playa</button>
+            <button type="button" class="topic-btn" data-topico="Fiesta">🎉 Fiesta</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>¿Cómo querés viajar?</label>
+          <div class="transport-row">
+            <button type="button" class="transport-btn" data-transporte="Automóvil">🚗 Automóvil</button>
+            <button type="button" class="transport-btn" data-transporte="Bicicleta">🚲 Bicicleta</button>
+            <button type="button" class="transport-btn" data-transporte="Bus/Tren">🚌 Bus/Tren</button>
+            <button type="button" class="transport-btn" data-transporte="Moto">🏍️ Moto</button>
+            <button type="button" class="transport-btn" data-transporte="Avión">✈️ Avión</button>
+            <button type="button" class="transport-btn" data-transporte="Barco">⛴️ Barco</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="descripcion">Resumen de tu viaje</label>
+          <textarea id="descripcion" name="descripcion" rows="3" placeholder="Ej: Quiero esquiar en Europa durante el invierno"></textarea>
+        </div>
+        <div class="form-group checkbox-group">
+          <label>
+            <input type="checkbox" id="cotizacion-presupuesto" />
+            Necesito cotización de presupuesto
+          </label>
+        </div>
+        <button type="submit" class="main-btn">🔍 Buscar Itinerario</button>
+      </form>
+      <div id="resultado" class="resultado" style="display:none;"></div>
+      <div id="spinner-carga" class="spinner" style="display:none;">
+        <img src="https://i.imgur.com/llF5iyg.gif" alt="Cargando..." width="60" />
+        <p>Generando tu itinerario, por favor esperá...</p>
+      </div>
+      <div id="imagen-destino" class="imagen-destino"></div>
+      <!-- Chat integrado arriba del botón de descargar -->
+      <section class="chat-section" style="display:none;">
+        <h2>Chat con AI sobre tu itinerario</h2>
+        <div id="chat-container">
+          <div id="chat-messages"></div>
+          <input type="text" id="chat-input" placeholder="Escribe tu mensaje o cambio..." />
+          <button id="send-chat" class="main-btn">Enviar</button>
+        </div>
+      </section>
+      <div id="guardar-itinerario" class="save-section">
+        <button type="button" id="boton-guardar" class="main-btn">💾 Descargar itinerario creado</button>
+        <div id="formulario-email" style="display: none;">
+          <label>
+            <input type="checkbox" id="quiero-contacto" />
+            Quiero que me contacten para cotizar mi viaje
+          </label>
+          <input type="email" id="email-destino" placeholder="Tu correo electrónico" />
+          <button id="enviar-itinerario" class="main-btn">📩 Enviar</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2025 MiPlanDeViaje.com</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
